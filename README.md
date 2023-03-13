@@ -17,17 +17,13 @@
 * 该项目文件的使用方法：
     先运行train.py文件夹，得到模型训练后的参数和类别列表，然后运行predict.py文件进行预测。
 ** 例子
-'''
+'''python
+def main():
     train_dir = r'train/train.txt'  # 训练集路径
-    model_dir = r'svm.txt'       # 模型保存路径
-    # # 训练  得到训练好的分类器和最优结点排布列表
-    # 根据数据集指定类别标签列表classList
-    classList = [1, 2, 3]
-    # 惩罚因子越大说明对于离群点越重视，松弛变量越大说明容错性越高
-    train(train_dir, model_dir, classList, 50, 90, 10000, 'rbf', 20)
-    # # 预测
-    model_dir = r'svm.txt'  # 模型保存路径
     test_dir = r'test/test.txt'  # 测试集路径
+    model_dir = r'svm.txt'       # 模型保存路径
+    classList = [1, 2, 3]       # 根据数据集指定类别标签列表classList
+    train(train_dir, model_dir, classList, 50, 90, 10000, 'rbf', 20)
     predict(model_dir, test_dir, [1, 3, 2])   # [1,3,2]为最优类别列表顺序
 '''
 
