@@ -13,11 +13,9 @@
    两种构建方法在训练阶段相同，只是在测试阶段不同。将训练后的模型参数保存在svm.txt文件中。
 * 8、train.py文件实现对模型的训练，并输出最优的类别列表顺序，该类别列表用于预测阶段。
 * 9、predict.py文件实现对测试样本的预测，并输出正确率。
-
-* 该项目文件的使用方法：
-    先运行train.py文件夹，得到模型训练后的参数和类别列表，然后运行predict.py文件进行预测。
+* 该项目文件的使用方法：先运行train.py文件夹，得到模型训练后的参数和类别列表，然后运行predict.py文件进行预测。
 ** 例子
-'''python
+```python
 def main():
     train_dir = r'train/train.txt'  # 训练集路径
     test_dir = r'test/test.txt'  # 测试集路径
@@ -25,6 +23,5 @@ def main():
     classList = [1, 2, 3]       # 根据数据集指定类别标签列表classList
     train(train_dir, model_dir, classList, 50, 90, 10000, 'rbf', 20)
     predict(model_dir, test_dir, [1, 3, 2])   # [1,3,2]为最优类别列表顺序
-'''
-
+```
 
