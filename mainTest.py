@@ -1,6 +1,6 @@
-from Multiphase_flow.data_preprocess import load_data,normalize_data,normalize_data_nonlinear,convert_to_one_hot
-from Multiphase_flow.feature_extract import feature_extract, feature_extract_s
-from Multiphase_flow.visualization import draw_feature,draw_origin,draw_similar,draw_different,draw_bar,draw_bar_feature,draw_feature_name
+from Multiphase_flow.data_preprocess import *
+from Multiphase_flow.feature_extract import *
+from Multiphase_flow.visualization import *
 import numpy as np
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -13,8 +13,9 @@ from svm_multiClass import LibSVM
 
 if __name__ == '__main__':
     # 读取数据
-    samples, labels = load_data(r'train/train.txt')
-    n = len(labels)  # 样本数目68  包括空管流和满管流
+    # samples, labels = load_data(r'train/train.txt')
+    samples, labels = readTxt(r'train/train.txt')
+    n = len(labels)  # 样本数目66  包括空管流和满管流
     # 绘制原始数据与不同流型的关系
     # draw_origin(samples)
     # draw_similar(samples)
@@ -30,12 +31,13 @@ if __name__ == '__main__':
     # draw_bar(normal_data)
     # 提取特征 暂时不对空管流和满管流进行特征提取
     # 66个样本 每个样本9个特征 features:66*9
-    features = feature_extract(normal_data[2:],n-2)
+    features = feature_extract(normal_data, n)
     # features = feature_extract_s(normal_data, n)
     # draw_feature(features)
     # draw_bar_feature(features)
-    # for i in range(6,8):
+    # for i in range(0,8):
     #     draw_feature_name(features, i)
+
 
    # ##------------------------------调用模型(原始数据效果好)----------------------------------------
    #  # 使用原始数据acc=0.9，数据处理后acc=0.3
@@ -69,19 +71,22 @@ if __name__ == '__main__':
 
 
 
-    # # # 预测阶段
-    # svm = LibSVM.load("svm.txt")
-    #
-    # # 读取测试集样本
-    # test, testlabel = load_data(r'test/test.txt')
-    # # 后续优化 将测试标签由123->012
-    # # testlabel[:] = testlabel[:]
-    # # # 将测试数据转换为特征提取后的数据形式
-    # test = feature_extract(test, len(testlabel))
-    # # 采用1v1模式预测
-    # # svm.predict(test, testlabel)
-    # # 采用DAG-SVM预测
-    # svm.DDAG_predict(test, testlabel, [1,3,2])
+    # # 预测阶段
+    svm = LibSVM.load("svm.txt")
+
+    # 读取测试集样本
+    test, testlabel = readTxt(r'test/test.txt')
+    # 后续优化 将测试标签由123->012
+    # testlabel[:] = testlabel[:]
+    # test = normalize_data_nonlinear(test)
+    test = normalize_data(test)
+    # # 将测试数据转换为特征提取后的数据形式
+    test = feature_extract(test, len(testlabel))
+    # print(test)
+    # 采用1v1模式预测
+    # svm.predict(test, testlabel)
+    # 采用DAG-SVM预测
+    svm.DDAG_predict(test, testlabel, [1,3,2])
 
 
 

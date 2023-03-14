@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 # 原始数据与流型的关系 每种流型选取一个样本，寻找数据特征与流型的关系
@@ -81,7 +82,7 @@ def draw_different(data):
 # 特征提取后数据与流型的关系
 def draw_feature(features):
     plt.figure(figsize=(20, 10), dpi=100)
-    feature = ['top_bottom','adm','ads','sam','sds','fm','sfm1','sfm2','avm']
+    feature = ['tbr','adm','ads','sam','sds','fm','u3vm','d3vm','avm']
     # 0-21layer,22-43ring,44-65core
     # layer_value = features[0]
     # ring_value = features[17]
@@ -114,13 +115,14 @@ def draw_feature(features):
 
 
 def feature_type(s):
-    it = {0:'top_bottom', 1:'adm', 2:'ads', 3:'sam', 4:'sds', 5:'fm', 6:'u3vm', 7:'d3vm', 8:'avm'}  # sfm1,sfm2
+    it = {0:'tbr', 1:'adm', 2:'ads', 3:'sam', 4:'sds', 5:'fm', 6:'u3vm', 7:'d3vm', 8:'avm'}  # sfm1,sfm2
     return it[s]
 
 
 # 绘制不同流型对应的特征值
 # features为特征矩阵，f_index为某个特征对应的索引
 def draw_feature_name(features, f_index):
+    features = np.array(features)
     plt.figure()
     x = range(0, 22, 1)
     layer_value = features[0:22, f_index]

@@ -1035,3 +1035,52 @@ S.append([1,2])
 # x = unique(l)
 # print(x)
 
+# def readTxt(dir):
+#     file = open(dir, 'r')
+#     file_data = file.readlines()
+#     datas = []
+#     labels = []
+#     for line in file_data:
+#         line = line.split('\n')[0]
+#         l = line.split(',')[:-1]
+#         data = []
+#         for i in l:
+#             data.append(float(i))
+#         datas.append(data)
+#         if(line.split(',')[-1]=='layer'):
+#             labels.append(1.0)
+#         elif(line.split(',')[-1]=='ring'):
+#             labels.append(2.0)
+#         elif(line.split(',')[-1]=='core'):
+#             labels.append(3.0)
+#         elif(line.split(',')[-1]=='empty'):
+#             labels.append(0.0)
+#         elif (line.split(',')[-1] == 'full'):
+#             labels.append(4.0)
+#     return datas, labels
+#
+# if __name__ == '__main__':
+#     dir = r'train/train.txt'
+#     # readTxt(dir)
+#     data, label = readTxt(dir)
+#     print(data)
+#     print("--------------------------------")
+#     print(label)
+
+features = [[1, 2, 3], [2, 4, 6]]
+
+features = np.array(features)
+
+# x_ = x[:, 0]/x[:, 2]
+# x_ = np.round(x_, 3)
+# print(x_)
+# print(type(x_))
+
+
+f_max = np.max(features, axis=1)
+f_min = np.min(features, axis=1)
+datas = np.zeros((features.shape[0], features.shape[1]))
+for index,f in enumerate(features):
+    datas[index] = (f-f_min[index])/(f_max[index]-f_min[index])
+
+print(datas)
